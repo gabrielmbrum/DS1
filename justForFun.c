@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//#include "justForFun.h"
 /*
 this code was the first one and it is a exercise "Just For Fun" (by Wallace's Words)
 
@@ -8,36 +8,8 @@ it's just a code to remember the concepts and the usability of pointers
 */
 
 //-------------//-------------//-------------//-------------//-------------
-// conjunto.h
-// Tipo Exportadogit 
-typedef struct conjunto Conjunto;
-
-// Funções Exportadas
-
-// Função União: junta os elementos do conjunto A e B e retorna o conjunto união
-Conjunto *uniao(Conjunto *A, Conjunto *B);
-
-// Função Criar: cria uma struct do tipo Conjunto e retorna ela
-Conjunto *criar(int tamanho);
-
-// Função Interseçõa: junta os elementos iguais do conjunto A e B no conjunto C
-Conjunto *interseccao (Conjunto *A, Conjunto *B);
-
-// Imprime os elementos do conjunto
-void imprimir(Conjunto *A);
-
-// Quicksort functions
-int mediana3 (int *arr, int a,int b, int c);
-int partition(int arr[], int left, int right);
-void quicksort(int arr[], int left, int right);
-
-// Verifica se são iguais os conjuntos e retorna trues or false
-int igual (Conjunto *A, Conjunto *B);
-
-//-------------//-------------//-------------//-------------//-------------
 // conjunto.c
 
-// Implementação da struct
 typedef struct conjunto {
   
   int *elementos;
@@ -45,7 +17,23 @@ typedef struct conjunto {
 
 } Conjunto;
 
-// Implementação das funções do TAD conjunto
+Conjunto *criar(int tamanho) {
+  //puts("oi");
+  Conjunto *A;
+  if (!((Conjunto*) malloc(sizeof(Conjunto))))
+    puts("ERROR!!!");
+  
+  A->tamanho = tamanho;
+  A->elementos = (int*) malloc(sizeof(int) * tamanho);
+
+  for (int i = 0; i < tamanho; i++) {
+    printf("Digite o elemento %d do conjunto: ", i + 1);
+    scanf(" %d", &A->elementos[i]);
+    //printf("i: %d | tamanho %d\n", i, tamanho);
+  }
+
+  return A;
+}
 
 Conjunto *uniao(Conjunto *A, Conjunto *B) {
   Conjunto *C = (Conjunto*) malloc(sizeof(Conjunto));
@@ -66,22 +54,6 @@ Conjunto *uniao(Conjunto *A, Conjunto *B) {
 
   return C;
 }
-
-Conjunto *criar(int tamanho) {
-  //puts("oi");
-  Conjunto *A = (Conjunto*) malloc(sizeof(Conjunto));
-  A->tamanho = tamanho;
-  A->elementos = (int*) malloc(sizeof(int) * tamanho);
-
-  for (int i = 0; i < tamanho; i++) {
-    printf("Digite o elemento %d do conjunto: ", i + 1);
-    scanf(" %d", &A->elementos[i]);
-    //printf("i: %d | tamanho %d\n", i, tamanho);
-  }
-
-  return A;
-}
-
 Conjunto *interseccao (Conjunto *A, Conjunto *B) {
   int tamAux, *arrayAux, equalCount = 0;
 
@@ -115,11 +87,9 @@ Conjunto *interseccao (Conjunto *A, Conjunto *B) {
   
   return C;
 }
-
 void criaConjuntoVazio (Conjunto **A) {
   *A = (Conjunto*) malloc(sizeof(Conjunto));
 }
-
 int membro (Conjunto *A, int val) {
   for (int i = 0; i < A->tamanho; i++)
     if (A->elementos[i] == val)
@@ -127,7 +97,6 @@ int membro (Conjunto *A, int val) {
   
   return 0;
 }
-
 void imprimir(Conjunto *A) {
   for (int i = 0; i < A->tamanho; i++) {
     printf("%d ", A->elementos[i]);
@@ -195,13 +164,15 @@ void quicksort(int arr[], int left, int right) {
 // main.c
 
 int main() {
-  Conjunto *A, *B;// *C;
+  
+  printf("hello its working!! :)\n");
+  Conjunto *A;// *B;// *C;
 
   printf("CONJUNTO A\n");
   A = criar(3);
 
   printf("\nCONJUNTO B\n"); 
-  B = criar(3);
+  //B = criar(3);
 
   //C = interseccao(A, B);
 
