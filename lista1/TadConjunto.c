@@ -111,3 +111,11 @@ void Insere (int x, int **a) {
 
     *a = aux;
 }
+
+boolean Igual (int *a, int *b) {
+    for (int i = 0; a[i]; i++) 
+        if (!(Membro(a[i], b)))
+            return FALSE;
+
+    return TRUE;
+}
