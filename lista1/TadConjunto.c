@@ -113,6 +113,8 @@ void Insere (int x, int **a) {
 }
 
 boolean Igual (int *a, int *b) {
+    if (sizeof(a) != sizeof(b)) return FALSE;
+
     for (int i = 0; a[i]; i++) 
         if (!(Membro(a[i], b)))
             return FALSE;
