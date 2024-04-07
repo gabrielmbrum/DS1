@@ -53,3 +53,27 @@ int* Uniao (int *a, int *b) {
 
     return arr;
 }
+
+int *Interseccao (int *a, int *b) {
+    int *arr, *aux, sizeA, sizeB, count = 0;
+
+    sizeA = sizeof(a)/sizeof(int);
+    sizeB = sizeof(b)/sizeof(int);
+
+    if (sizeA > sizeB) aux = malloc(sizeof(int) * sizeA);
+    else aux = malloc(sizeof(int) * sizeB);
+
+    for (int i = 0; i < sizeA; i++) {
+        for (int j = 0; j < sizeB; j++) {
+            if (a[i] == b[i]) {
+                arr[count++] = a[i];
+            }
+        }
+    }
+
+    arr = malloc(sizeof(int) * count+1);
+
+    for (int i = 0; i<=count; i++) {
+
+    }
+}
