@@ -25,9 +25,10 @@ int main () {
         scanf(" %d", &arr2[i]);
     }
 
-    res = Uniao(arr1, arr2);
+    res = Intersecsao(arr1, arr2);
     
     printf("\nPrintando resultado!\n");
+    //printf("res[0]: %d", res[0]);
 
     for (int i = 0; res[i]; i++) {
         printf("res[%d]: %d\n", i, res[i]);
@@ -54,26 +55,33 @@ int* Uniao (int *a, int *b) {
     return arr;
 }
 
-int *Interseccao (int *a, int *b) {
+int* Intersecsao (int *a, int *b) {
+    // fields
     int *arr, *aux, sizeA, sizeB, count = 0;
 
+    // initializing vars
     sizeA = sizeof(a)/sizeof(int);
     sizeB = sizeof(b)/sizeof(int);
 
+    // creates aux array with the bigger length
     if (sizeA > sizeB) aux = malloc(sizeof(int) * sizeA);
     else aux = malloc(sizeof(int) * sizeB);
 
-    for (int i = 0; i < sizeA; i++) {
-        for (int j = 0; j < sizeB; j++) {
-            if (a[i] == b[i]) {
-                arr[count++] = a[i];
+    // check the equals, if it is equal implement and goes to the next position, until the array is over
+    for (int i = 0; i <= sizeA; i++) {
+        for (int j = 0; j <= sizeB; j++) {
+            if (a[i] == b[j]) {
+                aux[count++] = a[i];
+                break;
             }
         }
     }
 
-    arr = malloc(sizeof(int) * count+1);
+    // creates the return arr with the necessary length, implements it and return it
+    arr = malloc(sizeof(int) * count);
 
-    for (int i = 0; i<=count; i++) {
+    for (int i = 0; i<count; i++)
+        arr[i] = aux[i];
 
-    }
+    return arr;
 }
