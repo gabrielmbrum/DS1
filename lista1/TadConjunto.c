@@ -85,3 +85,20 @@ int* Intersecsao (int *a, int *b) {
 
     return arr;
 }
+
+boolean Membro (int x, int *a) {
+    //fields
+    int sizeA = sizeof(a)/sizeof(int);
+
+    // checking if the 'x' is on the array, if it is return TRUE, else return FALSE
+    for (int i = 0; i<=sizeA; i++) {
+        if (a[i] == x)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+void Insere () {
+    
+}
