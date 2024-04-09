@@ -118,7 +118,7 @@ boolean Inserir_produto (int key, int qtd, float valor, lista *L) {
    
    if (aux != 0) {
       // produto já existe, então adiciona somente a quantidade
-      L->A[aux-1].info.quantidade += qtd;
+      (*L).A[aux-1].info.quantidade += qtd;
       return TRUE;
    } 
    
@@ -127,9 +127,9 @@ boolean Inserir_produto (int key, int qtd, float valor, lista *L) {
       return FALSE;
    }
 
-   L->A[L->nelem].chave = key;
-   L->A[L->nelem].info.quantidade = qtd;
-   L->A[L->nelem].info.valor = valor;
+   (*L).A[L->nelem].chave = key;
+   (*L).A[L->nelem].info.quantidade = qtd;
+   (*L).A[L->nelem++].info.valor = valor;
 
    return TRUE;
 }

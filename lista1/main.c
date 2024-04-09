@@ -7,14 +7,14 @@
 int main()
 {
   // Preencher aqui um exemplo pr�tico que utilizar parte das opera��es da lista sequencial
-  lista *L, *Carrinho;
+  lista L, Carrinho;
 
-  L = malloc(sizeof(lista));
-  
-  Carrinho = malloc(sizeof(lista));
+  Definir(&L);
+  Definir(&Carrinho);
 
-  free(L);
-  free(Carrinho);
+  Inserir_produto(1, 20, 31.5, &L);
+
+  Imprimir(&L);
 
   return 0;
 }

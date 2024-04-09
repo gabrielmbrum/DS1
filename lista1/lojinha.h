@@ -44,15 +44,15 @@ boolean Vazia(lista *L);
 boolean Cheia(lista *L);
 void Definir(lista *L);
 void Apagar(lista *L);
-boolean Inserir_posic(produto x, int p, lista *L);
-boolean Inserir_ord(produto x, lista *L);
+float Valor(int key, lista *L);
+float ValorCarrinho (lista *Carrinho);
 boolean Buscar(int x, lista *L, int *p);
-boolean Buscar_ord(int x, lista *L, int *p);
-boolean Busca_bin(int x, lista *L, int *p);
 void Remover_posic(int p, lista *L);
-boolean Remover_ch(int x, lista *L);
 void Impr_prod(produto t);
 void Imprimir(lista *L);
-int Tamanho(lista *L);
+int Produto_existente (int key, produto *array);
+boolean Inserir_produto (int key, int qtd, float valor, lista *L);
+boolean Remover_produto (int key, int qtd, lista *L);
+boolean AdicionarAoCarrinho (int key, lista *L, lista *Carrinho);
 //-------------------------------------------
 
