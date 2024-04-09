@@ -36,6 +36,23 @@ void Apagar(lista *L){
    L->nelem = 0;
 }
 
+float Valor(int key, lista *L) {
+   for (int i = 0; i < L->nelem; i++) {
+      if (L->A[i].chave == key)
+         return (L->A[i].info.valor);
+   }
+}
+
+float ValorCarrinho (lista *Carrinho) {
+   float value = 0;
+   
+   for (int i = 0; i < Carrinho->nelem; i++) {
+      value += Carrinho->A[i].info.valor * Carrinho->A[i].info.quantidade;
+   }
+
+   return value;
+}
+
 boolean Buscar(int x, lista *L, int *p)
 {   
    /*Retorna true, se x ocorre na posi��o p. Se x ocorre mais de
@@ -70,62 +87,23 @@ void Remover_posic(int p, lista *L)
    L->nelem--;
 }
 
-void Impr_elem(tipo_elem t)
+void Impr_prod(produto t)
 {
    printf("chave: %d\n", t.chave);
-   printf("nome: %s\n", t.info.nome);
    printf("quantidade: %d\n", t.info.quantidade);
    printf("valor: %4.2f\n", t.info.valor);
-   //... (demais dados)
 }
 
 void Imprimir(lista *L)
 {
    //Imprime os elementos na sua ordem de preced�ncia
    
-   int i;
-   
    if (!Vazia(L))
-      for (i = 1; i <= L->nelem; i++)
-         Impr_elem(L->A[i]);
+      for (int i = 1; i <= L->nelem; i++)
+         Impr_prod(L->A[i]);
 }
 
-
-int Tamanho(lista *L)
-{
-   //Retorna o tamanho da lista. Se L � vazia retorna 0
-   
-   return L->nelem;
-}
-
-boolean Inserir_posic(tipo_elem x, int p, lista *L)
-{
-   /*Insere x, que � um novo elemento na posi��o p da lista
-   Se L = a_1, a_2,... a_n ent�o temos a_1, a_2, ... 
-   a_{p-1}, x, a_{p+1}, ... an.
-   Devolve true se sucesso, false c.c. (isto �: L n�o tem nenhuma 
-   posi��o p ou lista cheia). Obs: Opera��o para LISTA N�O-ORDENADA */
-   
-   int q;
-
-   if (Cheia(L) || p > L->nelem+1 || p < 1)
-   {
-      //Lista cheia ou posi��o n�o existe
-      return FALSE;
-   } 
-   else 
-   {
-    for(q = L->nelem; q>=p; q--) //Copia vizinho p/ direita
-      L->A[q+1] = L->A[q];
-    
-    L->A[p] = x;
-    L->nelem++;
-      
-	  return TRUE; //Inser��o feita com sucesso
-   }
-}
-
-int Produto_existente (int key, tipo_elem *array) {
+int Produto_existente (int key, produto *array) {
    
    for (int i = 0; array[i].chave; i++)
       if (array[i].chave == key)
@@ -134,23 +112,32 @@ int Produto_existente (int key, tipo_elem *array) {
    return 0;
 }
 
-boolean Inserir_produto (tipo_elem elem, lista *L) {
+boolean Inserir_produto (int key, int qtd, float valor, lista *L) {
 
-   int aux = Produto_existente(elem.chave, L->A); 
+   int aux = Produto_existente(key, L->A); 
    
    if (aux != 0) {
       // produto já existe, então adiciona somente a quantidade
-      L->A[aux-1].info.quantidade += elem.info.quantidade;
+      L->A[aux-1].info.quantidade += qtd;
       return TRUE;
    } 
    
-   return (Inserir_posic(elem, L->nelem+1, L));
-   
+   if (Cheia(L)) {
+      printf("Lista de produtos já esá cheia!!");
+      return FALSE;
+   }
+
+   L->A[L->nelem].chave = key;
+   L->A[L->nelem].info.quantidade = qtd;
+   L->A[L->nelem].info.valor = valor;
+
+   return TRUE;
 }
 
-boolean Remover_produto (tipo_elem elem, int qtd, lista *L) {
+boolean Remover_produto (int key, int qtd, lista *L) {
+
    
-   int aux = Produto_existente(elem.chave, L->A);
+   int aux = Produto_existente(key, L->A);
 
    if (!aux) return FALSE; //produto não existe
 
@@ -163,85 +150,31 @@ boolean Remover_produto (tipo_elem elem, int qtd, lista *L) {
 
    printf("Quantidade que deseja remove é maior do que a existente!!\n");
    return FALSE;
-
 }
 
-//Implementa��es para listas ordenadas
-//-------------------------------------------
-boolean Inserir_ord(tipo_elem x, lista *L)
-{
-   /*Insere novo elemento de forma a manter a lista ordenada
-   (crescente). Devolve true (se sucesso), false (c.c.)*/
+boolean AdicionarAoCarrinho (int key, lista *L, lista *Carrinho) {
+   
+   int aux = Produto_existente(key, L->A), qtd;
 
-   int i = 1;
-
-   //precisa-se achar a posição que o elemento irá ficar
-   while (x.chave > L->A[i].chave && i <= L->nelem) {
-     printf("i: %d\n", i);
-      i++;
-   }
-
-   //usar a func Inserir_posic para inserir na posição correta
-   if (Inserir_posic(x, i, L))
-      return TRUE;
-   else
+   // checa se existe estoque disponível
+   if (L->A[aux-1].info.quantidade < 1) {
+      printf("Produto indisponível!!");
       return FALSE;
-}
-
-boolean Buscar_ord(int x, lista *L, int *p)
-{ 
-   /*Retorna true se x ocorre na posi��o p. Se x ocorre mais de
-   uma vez, retorna a posi��o da primeira ocorr�ncia. Se x n�o
-   ocorre, retorna false. Para listas ORDENADAS*/
-   
-   //....
-}
-
-boolean Busca_bin(int x, lista *L, int *p)
-{
-   /*Retorna em p a posi��o de x na lista ORDENADA e true. 
-   //Se x n�o ocorre, retorna false*/
-   
-   //Implementa��o de busca bin�ria
-   int inf = 1;
-   int sup = L->nelem;
-   int meio;
-   
-   while (!(sup < inf))
-   {
-      meio = (inf + sup)/2;
-      if (L->A[meio].chave == x)
-	  {
-         *p = meio; //Sai da busca
-          return TRUE;
-      } 
-	  else 
-	  {
-         if (L->A[meio].chave < x)
-            inf = meio+1;
-         else
-            sup = meio-1;
-      }
    }
+   
+   if (aux) { //produto existe
+
+      printf("Digite a quantidade desejada: ");
+      scanf(" %d", &qtd);
+
+      while (aux > L->A[aux-1].info.quantidade || aux == 0) {
+         printf("Quantidade indisponível, digite a quantidade novamente: ");
+         scanf(" %d", &qtd);
+      }
+      
+      if (Remover_produto(key, qtd, L) && Inserir_produto(key, qtd, Valor(key, L), Carrinho))
+         return TRUE;
+   }  
+   printf("ERRO!!\n");
    return FALSE;
 }
-
-boolean Remover_ch(int x, lista *L)
-{
-   /*Remo��o dada a chave. Retorna true, se removeu, ou
-   false, c.c.*/
-   
-   int *p;
-   boolean removeu = FALSE;
-   
-   if (Busca_bin(x, L, p)) //Procura via busca bin�ria
-   {        
-       Remover_posic(p, L);
-       removeu = TRUE;
-   }
-   
-   return removeu;
-}
-//-------------------------------------------
-
-

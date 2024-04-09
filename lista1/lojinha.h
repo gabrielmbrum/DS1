@@ -15,26 +15,26 @@ encapsulamento... definido aqui apenas p/ facilitar a implementa��o */
 //Tipo registro
 typedef struct
 {
-   char nome[30];
    int quantidade;
    float valor;
 
-} tipo_dado;
+} descricao;
 
 //Tipo elemento (registro + chave)
 typedef struct
 {
    int chave;
-   tipo_dado info;
+   descricao info;
    
-} tipo_elem;
+} produto;
 
 //Tipo lista (seq. encadeada)
 typedef struct
 {
    int nelem; //nro de elementos
-   tipo_elem A[MAX+1];
-} lista;
+   produto A[MAX+1];
+
+}lista;
 //-------------------------------------------
 
 
@@ -44,14 +44,14 @@ boolean Vazia(lista *L);
 boolean Cheia(lista *L);
 void Definir(lista *L);
 void Apagar(lista *L);
-boolean Inserir_posic(tipo_elem x, int p, lista *L);
-boolean Inserir_ord(tipo_elem x, lista *L);
+boolean Inserir_posic(produto x, int p, lista *L);
+boolean Inserir_ord(produto x, lista *L);
 boolean Buscar(int x, lista *L, int *p);
 boolean Buscar_ord(int x, lista *L, int *p);
 boolean Busca_bin(int x, lista *L, int *p);
-void Remover_posic(int *p, lista *L);
+void Remover_posic(int p, lista *L);
 boolean Remover_ch(int x, lista *L);
-void Impr_elem(tipo_elem t);
+void Impr_prod(produto t);
 void Imprimir(lista *L);
 int Tamanho(lista *L);
 //-------------------------------------------
