@@ -47,24 +47,24 @@ boolean Buscar(int x, lista *L, int *p)
       int i = 1;
       while (i <= L->nelem)
          if (L->A[i].chave == x)
-		 {
-             *p = i;
-             return TRUE;
+		   {
+            *p = i;
+            return TRUE;
          } 
 		 else
-             i++;
+         i++;
    }
    return FALSE; //Retorna false se n�o encontrou
 }
 
-void Remover_posic(int *p, lista *L)
+void Remover_posic(int p, lista *L)
 {
    /*S� � ativada ap�s a busca ter retornado a posi��o p
    do elemento a ser removido - Nro de Mov = (nelem � p)*/
    
    int i;
    
-   for (i = *p+1; i <= L->nelem; i++)
+   for (i = p+1; i <= L->nelem; i++)
       L->A[i-1] = L->A[i];
    
    L->nelem--;
@@ -125,6 +125,46 @@ boolean Inserir_posic(tipo_elem x, int p, lista *L)
    }
 }
 
+int Produto_existente (int key, tipo_elem *array) {
+   
+   for (int i = 0; array[i].chave; i++)
+      if (array[i].chave == key)
+         return i+1;
+
+   return 0;
+}
+
+boolean Inserir_produto (tipo_elem elem, lista *L) {
+
+   int aux = Produto_existente(elem.chave, L->A); 
+   
+   if (aux != 0) {
+      // produto já existe, então adiciona somente a quantidade
+      L->A[aux-1].info.quantidade += elem.info.quantidade;
+      return TRUE;
+   } 
+   
+   return (Inserir_posic(elem, L->nelem+1, L));
+   
+}
+
+boolean Remover_produto (tipo_elem elem, int qtd, lista *L) {
+   
+   int aux = Produto_existente(elem.chave, L->A);
+
+   if (!aux) return FALSE; //produto não existe
+
+   if (L->A[aux-1].info.quantidade < qtd) return FALSE;
+
+   if (L->A[aux-1].info.quantidade == qtd) {
+      Remover_posic(aux-1,L);
+      return TRUE;   
+   }  
+
+   printf("Quantidade que deseja remove é maior do que a existente!!\n");
+   return FALSE;
+
+}
 
 //Implementa��es para listas ordenadas
 //-------------------------------------------
