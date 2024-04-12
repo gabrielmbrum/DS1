@@ -21,3 +21,9 @@ int insere_esq (no *pai, int info);
 
 // insere nó a direita do nó pai
 int insere_dir (no *pai, int info);
+
+// faz o inteiro 'm' receber o maior elemento da árvore
+void maior (no *raiz, int *m);
+
+// retorna a quantidade de nó folhas da árvore
+int qtd_no_folha (no *raiz);

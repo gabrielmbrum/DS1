@@ -2,9 +2,17 @@
 
 int main () {
     no *raiz = cria_no(10, NULL, NULL);
+    int bigger = raiz->dado;
+
     insere_esq(raiz, 9);
-    insere_dir(raiz, 11);
+    //insere_dir(raiz, 11);
     imprimir(raiz);
+
+    maior(raiz, &bigger);
+
+    printf("\no maior elemento é: %d\n", bigger);
+
+    printf("\nessa árvore possui %d nós folhas\n", qtd_no_folha(raiz));
 }
 
 int vazia (no *raiz) {
@@ -55,4 +63,22 @@ int insere_dir (no *pai, int info) {
 
     pai->dir = filho;
     return 1;
+}
+
+void maior (no *raiz, int *m) {
+    if (raiz != NULL) {
+        if (raiz->dado > *m) *m = raiz->dado;
+        maior(raiz->esq, &(*m));
+        maior(raiz->dir, &(*m));
+    }
+}
+
+int qtd_no_folha (no *raiz) {
+    if (raiz==NULL) return 0;
+    if (raiz->esq == NULL && raiz->dir == NULL) return 1;
+
+    int folhas_esq = qtd_no_folha(raiz->esq);
+    int folhas_dir = qtd_no_folha(raiz->dir);
+
+    return (folhas_esq + folhas_dir);
 }
