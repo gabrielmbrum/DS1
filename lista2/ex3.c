@@ -1,11 +1,13 @@
 #include "ex3.h"
 
 int main () {
+    
     no *raiz = cria_no(10, NULL, NULL);
     int bigger = raiz->dado;
 
     insere_esq(raiz, 9);
-    //insere_dir(raiz, 11);
+    insere_dir(raiz, 11);
+    insere_esq(raiz->esq, 8);
     imprimir(raiz);
 
     maior(raiz, &bigger);
@@ -13,6 +15,11 @@ int main () {
     printf("\no maior elemento é: %d\n", bigger);
 
     printf("\nessa árvore possui %d nós folhas\n", qtd_no_folha(raiz));
+
+    if (cheia(raiz))
+        printf("\nárvore está cheia!\n");
+    else   
+        printf("\návore não está cheia!\n");
 }
 
 int vazia (no *raiz) {
@@ -81,4 +88,14 @@ int qtd_no_folha (no *raiz) {
     int folhas_dir = qtd_no_folha(raiz->dir);
 
     return (folhas_esq + folhas_dir);
+}
+
+int cheia (no *raiz) {
+    if (raiz == NULL) return 0;
+    if (raiz->esq == NULL && raiz->dir == NULL)
+        return 1;
+    if ( ( raiz->esq == NULL && raiz->dir != NULL )|| ( raiz->esq != NULL && raiz->dir == NULL ) )
+        return 0;
+    return (cheia(raiz->esq) && cheia(raiz->dir));
+
 }

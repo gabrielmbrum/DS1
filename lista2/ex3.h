@@ -27,3 +27,5 @@ void maior (no *raiz, int *m);
 
 // retorna a quantidade de nó folhas da árvore
 int qtd_no_folha (no *raiz);
+
+int cheia(no* raiz);
