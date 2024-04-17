@@ -29,3 +29,18 @@ void maior (no *raiz, int *m);
 int qtd_no_folha (no *raiz);
 
 int cheia(no* raiz);
+
+void print_menores_que (no *raiz, int N);
+
+// retorna o maior nó a esquerda 
+no* maior_esq (no* raiz);
+
+no *busca_remove(no *raiz, int info);
+
+no* remove_no(no* raiz);
+
+int balanceada(no* raiz); //retorna 1 (true) ou 0 (false)
+
+int Altura(no* raiz);
+
+int qtdNos (no* raiz);
