@@ -6,3 +6,12 @@ typedef struct no {
     struct no *esq, *dir;
 } no;
 
+no* cria_no(int data);
+
+no* insere(no* raiz, no* new);
+
+int desbalanceada(no * raiz);
+
+int altura(no *raiz);
+
+void preOrd (no *raiz);
