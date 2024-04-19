@@ -15,3 +15,5 @@ int desbalanceada(no * raiz);
 int altura(no *raiz);
 
 void preOrd (no *raiz);
+
+no* rotEsqSimples (no* raiz);

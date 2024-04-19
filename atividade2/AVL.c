@@ -23,8 +23,18 @@ no* insere(no* raiz, no* new) {
     raiz->fb = altura(raiz->dir) - altura(raiz->esq);
 
     //verificar se a raiz desbalanceou
-    if (desbalanceada(raiz))
+    if (desbalanceada(raiz)) {
+
         printf("\ndesbalanceou!!\n");
+        
+        if (raiz->fb > 1) {
+           if (raiz->dir->fb < 0) puts("\nrotação dupla esquerda");
+           else raiz = rotEsqSimples(raiz); 
+        } else {
+            if (raiz->esq->fb > 0) puts("\nrotação dupla direita");
+            else puts("\nrotação simples direita");
+        } 
+    }
     else if (raiz->dado == new->dado) //imprime a mensagem de inserido com sucesso, se e somente se, for o número novo inserido
         printf("\n%d inserido com sucesso!!\n", raiz->dado);
 
@@ -52,4 +62,22 @@ void preOrd (no *raiz) {
         preOrd(raiz->esq);
         preOrd(raiz->dir);
     }
+}
+
+no* rotEsqSimples (no *raiz) {
+    no *aux = (no*) malloc(sizeof(no));
+    
+    aux->dado = raiz->dir->dado;
+    aux->esq = raiz;
+    aux->dir = raiz->dir->dir;
+    aux->esq->dir = raiz->dir->esq;
+
+    //recalcula os FB's
+    aux->fb = altura(aux->dir) - altura(aux->esq);
+    raiz->fb = altura(raiz->dir) - altura(raiz->esq);
+    
+    raiz = aux;
+    free(aux);
+
+    return raiz;
 }
