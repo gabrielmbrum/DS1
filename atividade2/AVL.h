@@ -17,3 +17,15 @@ int altura(no *raiz);
 void preOrd (no *raiz);
 
 no* rotEsqSimples (no* raiz);
+
+no* rotDirSimples (no *raiz);
+
+no* rotEsqDupla (no *raiz);
+
+no* rotDirDupla (no *raiz);
+
+no* remover(no *raiz, int elem);
+
+no* busca(no *raiz, int elem);
+
+no* maior_dir (no* raiz);
