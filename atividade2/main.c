@@ -1,7 +1,7 @@
 #include "AVL.h"
 
 int main () {
-    no *raiz = cria_no(5), *seis = cria_no(6), *sete = cria_no(7),*tres = cria_no(3), *quatro = cria_no(4);
+    no *raiz = cria_no(5), *seis = cria_no(6), *sete = cria_no(7), *quatro = cria_no(4);
 
     raiz = insere(raiz, sete);
     raiz = insere(raiz, quatro);
