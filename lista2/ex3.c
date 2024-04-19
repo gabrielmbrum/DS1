@@ -174,7 +174,6 @@ int balanceada(no* raiz) {
   else if (raiz->esq != NULL && raiz->dir != NULL) return (balanceada(raiz->esq) && balanceada(raiz->dir));
   else if (raiz->esq != NULL) return (Altura(raiz->esq) == 1);
   else return (Altura(raiz->dir) == 1);
-
 }
 
 int Altura (no* raiz) {
@@ -183,4 +182,21 @@ int Altura (no* raiz) {
   int altE = Altura(raiz->esq);
   int altD = Altura(raiz->dir);
   return (altE > altD ? (altE + 1) : (altD + 1));
+}
+
+int qtdNos (no* raiz) {
+  if (raiz == NULL) return 0;
+
+  int nosE = qtdNos(raiz->esq);
+  int nosD = qtdNos(raiz->dir);
+
+  return (nosE + nosD + 1);
+}
+
+int perfBalanceada (no *raiz) {
+  if (raiz == NULL) return 1;
+  else if (raiz->esq == NULL && raiz->dir == NULL) return 1;
+  else if (raiz->esq != NULL && raiz->dir != NULL) return (perfBalanceada(raiz->esq) && perfBalanceada(raiz->dir));
+  else if (raiz->esq != NULL) return (qtdNos(raiz->esq) == 1);
+  else return (qtdNos(raiz->dir) == 1);
 }
