@@ -8,7 +8,7 @@ typedef struct no {
 
 no* cria_no(int data);
 
-no* insere(no* raiz, no* new);
+no* insere(no* raiz, int val);
 
 int desbalanceada(no * raiz);
 
@@ -26,6 +26,8 @@ no* rotDirDupla (no *raiz);
 
 no* remover(no *raiz, int elem);
 
-no* busca(no *raiz, int elem);
+no* busca_ancestral(no *raiz, int elem);
 
 no* maior_dir (no* raiz);
+
+no* balancear (no* raiz);
