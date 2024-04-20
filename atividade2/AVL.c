@@ -1,6 +1,6 @@
 #include "AVL.h"
 
-no *cria_no(int data)
+no* cria_no (int data)
 {
   no *new = (no *)malloc(sizeof(no));
   new->dado = data;
@@ -10,7 +10,7 @@ no *cria_no(int data)
   return new;
 }
 
-no *insere(no *raiz, int val)
+no* insere (no* raiz, int val)
 {
   if (raiz == NULL)
   {
@@ -43,7 +43,7 @@ no *insere(no *raiz, int val)
   return raiz;
 }
 
-int desbalanceada(no *raiz)
+int desbalanceada (no* raiz)
 {
   if (raiz == NULL)
     return 0;
@@ -53,7 +53,7 @@ int desbalanceada(no *raiz)
     return (desbalanceada(raiz->esq) || desbalanceada(raiz->dir));
 }
 
-int altura(no *raiz)
+int altura (no* raiz)
 {
   if (raiz == NULL)
     return 0;
@@ -64,7 +64,7 @@ int altura(no *raiz)
   return (altE + altD + 1);
 }
 
-void preOrd(no *raiz)
+void preOrd (no* raiz)
 {
   if (raiz != NULL)
   {
@@ -74,7 +74,7 @@ void preOrd(no *raiz)
   }
 }
 
-no *rotEsqSimples(no *raiz)
+no* rotEsqSimples (no* raiz)
 {
   no *aux = (no *)malloc(sizeof(no));
 
@@ -90,7 +90,7 @@ no *rotEsqSimples(no *raiz)
   return aux;
 }
 
-no *rotDirSimples(no *raiz)
+no* rotDirSimples (no* raiz)
 {
   no *aux = (no *)malloc(sizeof(no)); // nova raiz
 
@@ -106,19 +106,19 @@ no *rotDirSimples(no *raiz)
   return aux;
 }
 
-no *rotEsqDupla(no *raiz)
+no* rotEsqDupla (no* raiz)
 {
   raiz->dir = rotDirSimples(raiz->dir);
   return rotEsqSimples(raiz);
 }
 
-no *rotDirDupla(no *raiz)
+no* rotDirDupla (no* raiz)
 {
   raiz->esq = rotEsqSimples(raiz->esq);
   return rotDirSimples(raiz);
 }
 
-no *remover(no *raiz, int chave)
+no* remover (no* raiz, int chave)
 {
   if (raiz == NULL)
   {
@@ -133,22 +133,22 @@ no *remover(no *raiz, int chave)
       { // é nó folha
         free(raiz);
         printf("elemento folha removido: %d\n", chave);
+
         return NULL;
       }
       else if (raiz->esq != NULL && raiz->dir != NULL)
-      {
-        no *aux = raiz->esq;
-        while (aux->dir)
-          aux = aux->dir;
+      { //possui dois filhos
+        no *aux = maior_esq(raiz);
 
         raiz->dado = aux->dado;
         aux->dado = chave;
         printf("elemento trocado: %d\n", chave);
         raiz->esq = remover(raiz->esq, chave);
+
         return raiz;
       }
       else
-      {
+      { //possui apenas um filho
         no *aux;
         if (raiz->esq != NULL)
           aux = raiz->esq;
@@ -170,19 +170,7 @@ no *remover(no *raiz, int chave)
   raiz = balancear(raiz);
 }
 
-no *busca_ancestral(no *raiz, int elem)
-{
-  if (raiz == NULL)
-    return NULL;
-  if (raiz->dado == elem)
-    return raiz;
-  if (elem > raiz->dado)
-    return busca_ancestral(raiz->dir, elem);
-  else
-    return busca_ancestral(raiz->esq, elem);
-}
-
-no *maior_dir(no *raiz)
+no* maior_esq (no* raiz)
 {
   no *aux = raiz->esq;
 
@@ -192,7 +180,7 @@ no *maior_dir(no *raiz)
   return aux;
 }
 
-no* balancear (no *raiz) {
+no* balancear (no* raiz) {
   if (desbalanceada(raiz))
   {
 
