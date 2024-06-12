@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "justForFun.h"
+#include "justForFun.h"
 /*
 this code was the first one and it is a exercise "Just For Fun" (by Wallace's Words)
 
@@ -9,13 +9,6 @@ it's just a code to remember the concepts and the usability of pointers
 
 //-------------//-------------//-------------//-------------//-------------
 // conjunto.c
-
-typedef struct conjunto {
-  
-  int *elementos;
-  int tamanho;
-
-} Conjunto;
 
 Conjunto *criar(int tamanho) {
   //puts("oi");
